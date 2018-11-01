@@ -7,6 +7,14 @@ public class HighscoreModel {
     private int clicks;
     private String country;
 
+    public HighscoreModel(int rank, String username, int floor, int clicks, String country)
+    {
+        this.rank = rank;
+        this.username = username;
+        this.floor = floor;
+        this.clicks = clicks;
+        this.country = country;
+    }
 
     public int getRank() {
         return rank;

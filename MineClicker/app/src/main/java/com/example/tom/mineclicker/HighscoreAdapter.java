@@ -2,90 +2,93 @@ package com.example.tom.mineclicker;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.nfc.Tag;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class HighscoreAdapter extends BaseAdapter{
-    private Activity activity;
-    private ArrayList<HighscoreModel> highscoreModels;
-    private static LayoutInflater inflator = null;
-    public Resources res;
-    HighscoreModel tempValues = null;
-    int i = 0;
+public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.ViewHolder> {
 
-    public HighscoreAdapter(Activity a, ArrayList<HighscoreModel> d, Resources resLocal) {
-        activity = a;
-        highscoreModels = d;
-        res = resLocal;
-        inflator = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public static final String KEY_RANK = "rank";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_CLICKS = "clicks";
+    public static final String KEY_FLOOR = "floor";
+    public static final String KEY_COUNTRY = "country";
+
+    private List<HighscoreModel> highscoreLists;
+    private Context context;
+
+    public HighscoreAdapter(List<HighscoreModel> highscoreList, Context context){
+        this.highscoreLists = highscoreList;
+        this.context = context;
+    }
+
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.inflate_highscores, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
-    public int getCount() {
-        if (highscoreModels.size() <= 0)
-            return 1;
-        return highscoreModels.size();
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
+        final HighscoreModel highscoreList = highscoreLists.get(position);
+        System.out.println("LOGGING: " + String.valueOf(highscoreList.getRank()));
+        holder.rank.setText(String.valueOf(highscoreList.getRank()));
+        holder.username.setText(String.valueOf(highscoreList.getUsername()));
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HighscoreModel highscoreListItem = highscoreLists.get(position);
+                Intent skipIntent = new Intent(v.getContext(), HighscoreDetailActivity.class);
+                skipIntent.putExtra(KEY_RANK, String.valueOf(highscoreListItem.getRank()));
+                skipIntent.putExtra(KEY_USERNAME, String.valueOf(highscoreListItem.getUsername()));
+                skipIntent.putExtra(KEY_CLICKS, String.valueOf(highscoreListItem.getClicks()));
+                skipIntent.putExtra(KEY_FLOOR, String.valueOf(highscoreListItem.getFloor()));
+                skipIntent.putExtra(KEY_COUNTRY, String.valueOf(highscoreListItem.getCountry()));
+                v.getContext().startActivity(skipIntent);
+            }
+        });
     }
 
     @Override
-    public Object getItem(int position) {
-        return position;
+    public int getItemCount() {
+        return highscoreLists.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
-    public static class ViewHolder {
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView rank;
         public TextView username;
-        public TextView floor;
-        public TextView clicks;
-        public TextView country;
+        public LinearLayout linearLayout;
+
+        public ViewHolder(View itemView){
+            super(itemView);
+
+            rank = itemView.findViewById(R.id.rank);
+            username = itemView.findViewById(R.id.username);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
+        }
     }
 
-    @Override
-    public View getView(final int position, final View convertView, ViewGroup parent) {
-        View vi = convertView;
-        ViewHolder holder;
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.inflate_highscores, parent, false);
-        Log.e("custom", "see you !");
-
-        if (convertView == null) {
-            vi = inflator.inflate(R.layout.inflate_highscores, null);
-            holder = new ViewHolder();
-            holder.rank = vi.findViewById(R.id.rank);
-            holder.username = vi.findViewById(R.id.username);
-            holder.floor = vi.findViewById(R.id.floor);
-            holder.clicks = vi.findViewById(R.id.clicks);
-            holder.country = vi.findViewById(R.id.country);
-            vi.setTag(holder);
-        } else {
-            holder = (ViewHolder) vi.getTag();
-        }
-
-        if (highscoreModels.size() <= 0) {
-            holder.rank.setText("NO DATA");
-        } else {
-            tempValues = null;
-            tempValues = highscoreModels.get(position);
-            holder.rank.setText(tempValues.getRank());
-            holder.username.setText(tempValues.getUsername());
-            holder.floor.setText(tempValues.getFloor());
-            holder.clicks.setText(tempValues.getClicks());
-            holder.country.setText(tempValues.getCountry());
-        }
-
-        return vi;
-    }
 }

@@ -60,13 +60,13 @@ public class Highscore extends AsyncTask<Void, Void, String> {
             JSONArray jsonArray = new JSONArray(highscoreJsonStr);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                HighscoreModel highscoreModel = new HighscoreModel();
+                /*HighscoreModel highscoreModel = new HighscoreModel();
                 highscoreModel.setRank(Integer.parseInt(jsonObject.getString("rank")));
                 highscoreModel.setUsername(jsonObject.getString("name"));
                 highscoreModel.setFloor(Integer.parseInt(jsonObject.getString("floor")));
                 highscoreModel.setClicks(Integer.parseInt(jsonObject.getString("clicks")));
                 highscoreModel.setCountry(jsonObject.getString("country"));
-                highscoresModel.add(highscoreModel);
+                highscoresModel.add(highscoreModel);*/
             }
             return highscoreJsonStr;
         } catch (IOException e) {
