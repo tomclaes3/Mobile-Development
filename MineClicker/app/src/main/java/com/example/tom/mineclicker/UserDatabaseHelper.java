@@ -29,11 +29,15 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     public static final
     String DATABASE_LOAD =
             "SELECT * FROM " + userStats.TABLE_NAME + ";";
+    public static final String
+            USERNAME_LOAD =
+            "SELECT * FROM " + userStats.TABLE_NAME + " WHERE " + userStats.COL_USERNAME + " == ";
 
 
     public UserDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -55,11 +59,40 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         values.put(userStats.COL_COUNTRY, user.getCountry());
         values.put(userStats.COL_CLICK_VALUE, user.getClickDamage());
         values.put(userStats.COL_MINER_VALUE, user.getDps());
+        values.put(userStats.COL_PASSWORD, user.getPassword());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(userStats.TABLE_NAME, null, values);
         db.close();
     }
+
+    public String loadUserHandler(String username) {
+        String result = "";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(USERNAME_LOAD + username + ";", null);
+        while(cursor.moveToNext()){
+            int result_id = cursor.getInt(0);
+            int result_floor = cursor.getInt(1);
+            int result_clicks = cursor.getInt(2);
+            int result_gold = cursor.getInt(3);
+            String result_username = cursor.getString(4);
+            String result_country = cursor.getString(5);
+            int result_clickValue = cursor.getInt(6);
+            int result_minerValue = cursor.getInt(7);
+            String result_password = cursor.getString(8);
+            result = String.valueOf(result_id) + " " + String.valueOf(result_floor) + " " +
+                    String.valueOf(result_clicks) + " " + String.valueOf(result_gold) + " " +
+                    result_username + " " + result_country + " " +
+                    String.valueOf(result_clickValue) + " " + String.valueOf(result_minerValue) +" " + String.valueOf(result_password)  +
+                    System.getProperty("line.separator");
+        }
+
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+
 
     public String loadHandler() {
         String result = "";
@@ -74,10 +107,11 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             String result_country = cursor.getString(5);
             int result_clickValue = cursor.getInt(6);
             int result_minerValue = cursor.getInt(7);
+            String result_password = cursor.getString(8);
             result += String.valueOf(result_id) + " " + String.valueOf(result_floor) + " " +
                     String.valueOf(result_clicks) + " " + String.valueOf(result_gold) + " " +
                     result_username + " " + result_country + " " +
-                    String.valueOf(result_clickValue) + " " + String.valueOf(result_minerValue) +
+                    String.valueOf(result_clickValue) + " " + String.valueOf(result_minerValue) +" " + String.valueOf(result_password) +
                     System.getProperty("line.separator");
         }
 

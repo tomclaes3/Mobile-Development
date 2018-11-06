@@ -16,6 +16,7 @@ public class UserContract {
         public static final String COL_COUNTRY = "country";
         public static final String COL_CLICK_VALUE = "click_value";
         public static final String COL_MINER_VALUE = "miner_value";
+        public static final String COL_PASSWORD = "password";
     }
 
     public static final String AUTHORITY = "be.carmans.niels.mininggame.contentprovider";
