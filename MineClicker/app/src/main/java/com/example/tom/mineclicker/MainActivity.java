@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.content.SharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button navigateToShop;
     Button navigateToHighScores;
     Button navigateToUpgreade;
+    UserModel user = new UserModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, upgreadesActivity.class));
             }
         });
+
+
+        //todo als je door gaat van register moet dit gebeuren
+        SharedPreferences prefs = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
+        String restoredText = prefs.getString("text", null);
+        if (restoredText != null) {
+            String name = prefs.getString("username", "No username defined");//"No name defined" is the default value.
+            String password = prefs.getString("password", "no password defined"); //0 is the default value.
+            user.setUsername(name);
+            user.setPassword(password);
+        }
+System.out.println("logging:" + user.getUsername() + " " + user.getPassword());
 
     }
 }

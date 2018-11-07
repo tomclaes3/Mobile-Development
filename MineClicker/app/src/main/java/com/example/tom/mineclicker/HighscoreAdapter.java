@@ -1,25 +1,15 @@
 package com.example.tom.mineclicker;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.ViewHolder> {
@@ -86,7 +76,7 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.View
             super(itemView);
 
             rank = itemView.findViewById(R.id.rank);
-            username = itemView.findViewById(R.id.username);
+            username = itemView.findViewById(R.id.usernameLabel);
             linearLayout = itemView.findViewById(R.id.linearLayout);
         }
     }
