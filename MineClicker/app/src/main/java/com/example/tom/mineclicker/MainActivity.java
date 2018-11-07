@@ -1,9 +1,12 @@
 package com.example.tom.mineclicker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Button navigateToUpgreade;
     UserModel user = new UserModel();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +46,12 @@ public class MainActivity extends AppCompatActivity {
         navigateToShop = (Button) findViewById(R.id.shop);
         navigateToHighScores = (Button) findViewById(R.id.highscores);
         navigateToUpgreade = (Button) findViewById(R.id.upgrades);
-
+        final Context mContext = this;
 
         rockImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hpBar.setProgress(hpBar.getProgress() - 10);
+              rockImage.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shakeanimation));
                 if (hpBar.getProgress() <= 0){
                     hpBar.setProgress(hpBar.getMax());
                     previousFloor.setText(String.valueOf(Integer.parseInt(previousFloor.getText().toString()) + 1));
@@ -55,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     //todo critically damage on the stone in a flashy epic way
                 }
+              //rockImage.setRotation(rockImage.getRotation() - 15);
             }
         });
         //navigatie

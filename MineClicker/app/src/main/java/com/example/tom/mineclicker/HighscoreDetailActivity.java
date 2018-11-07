@@ -2,10 +2,11 @@ package com.example.tom.mineclicker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class HighscoreDetailActivity extends AppCompatActivity {
+public class HighscoreDetailActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +25,6 @@ public class HighscoreDetailActivity extends AppCompatActivity {
         String clicks = intent.getStringExtra(HighscoreAdapter.KEY_CLICKS);
         String floor = intent.getStringExtra(HighscoreAdapter.KEY_FLOOR);
         String country = intent.getStringExtra(HighscoreAdapter.KEY_COUNTRY);
-
-
-        System.out.println("LOGGING: " + clicks + " " + floor + " " + country);
 
         rankTextView.setText(rank);
         usernameTextView.setText(username);

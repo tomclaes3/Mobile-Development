@@ -17,10 +17,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <fragment android:name="com.example.tom.mineclicker.ListFragment"
-          android:id="@+id/list"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
+      <fragment android:name="com.example.tom.mineclicker.ListFragment"
+        android:id="@+id/list"
+        android:layout_width="0dp"
+        android:layout_weight="0.1"
+        android:layout_height="match_parent"/>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout3"
