@@ -1,11 +1,20 @@
 package com.example.tom.mineclicker;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -24,8 +33,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class HighscoreActivity extends AppCompatActivity {
+public class HighscoreActivity extends Activity {
 
     private static final String URL_DATA = "http://5bc77c0dcc83760013c1cd15.mockapi.io/highscores";
 
@@ -42,7 +52,16 @@ public class HighscoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_highscore);
+
+        /*
+        TelephonyManager tm = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+        String countryCodeValue = tm.getNetworkCountryIso();
+        Locale loc = new Locale("",countryCodeValue);
+        System.out.println("LOGGING: " + loc.getDisplayCountry() );
+        */
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(null);
@@ -101,7 +120,7 @@ public class HighscoreActivity extends AppCompatActivity {
 
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
