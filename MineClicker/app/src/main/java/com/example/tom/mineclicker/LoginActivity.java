@@ -52,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
                 String allusers = userDatabaseHelper.loadHandler();
                 System.out.println("de usrname is " + username + "en " + allusers);
                 if ((allusers.contains(username))){
-                    String password = ((EditText) findViewById(R.id.Password)).getText().toString();
-                  //  user = userDatabaseHelper.loadUserHandler(username);
-                    if(user.getPassword() == password){
+                    String password = ((EditText) findViewById(R.id.loginPassword)).getText().toString();
+                    user = userDatabaseHelper.loadUserHandler(username);
+                    if(user.getPassword().equals(password)){
                         //password correct, stuur door naar main
                         SharedPreferences.Editor editor = getSharedPreferences("ACCOUNT", MODE_PRIVATE).edit();
                         editor.putString("username", username);

@@ -67,10 +67,11 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
     public UserModel loadUserHandler(String username) {
         String result = "";
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(USERNAME_LOAD + username + ";", null);
+        Cursor cursor = db.rawQuery(USERNAME_LOAD + "'"+ username +"'" + ";", null);
         while(cursor.moveToNext()){
             int result_id = cursor.getInt(0);
             int result_floor = cursor.getInt(1);
@@ -82,6 +83,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             int result_minerValue = cursor.getInt(7);
             String result_password = cursor.getString(8);
 
+            user.setId(result_id);
             user.setPassword(result_password);
             user.setClickCount(result_clicks);
             user.setClickDamage(result_clickValue);
@@ -91,11 +93,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             user.setGold(result_gold);
             user.setUsername(result_username);
 
-            result = String.valueOf(result_id) + " " + String.valueOf(result_floor) + " " +
-                    String.valueOf(result_clicks) + " " + String.valueOf(result_gold) + " " +
-                    result_username + " " + result_country + " " +
-                    String.valueOf(result_clickValue) + " " + String.valueOf(result_minerValue) +" " + String.valueOf(result_password)  +
-                    System.getProperty("line.separator");
         }
 
         cursor.close();

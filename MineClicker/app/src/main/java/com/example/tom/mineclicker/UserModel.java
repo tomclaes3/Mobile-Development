@@ -2,7 +2,7 @@ package com.example.tom.mineclicker;
 
 public class UserModel {
 
-    private int floor;
+    private int floor = 1;
     private int gold;
     private String username;
     private String country;
@@ -10,6 +10,11 @@ public class UserModel {
     private int dps;
     private int clickDamage;
     private int clickCount;
+    private int userId;
+
+    public int getId() {return userId;}
+
+    public void setId(int id) {userId = id; }
 
     public int getFloor() {
         return floor;

@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView rockImage;
     private ProgressBar hpBar;
+    private EditText hpBarText;
     private EditText coins;
     private EditText previousFloor;
     private EditText currentFloor;
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    //start timer
+
+        StartTimer();
+
 
         hpBar = (ProgressBar) findViewById(R.id.hpBar);
         rockImage = (ImageView) findViewById(R.id.rock);
@@ -45,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         previousFloor = (EditText) findViewById(R.id.previousfloor);
         currentFloor = (EditText) findViewById(R.id.currentFloor);
         nextFloor = (EditText) findViewById(R.id.nextfloor);
+        hpBarText = (EditText) findViewById(R.id.hpBarText);
+        hpBarText.setText(hpBar.getProgress() + "/" + hpBar.getMax());
         //navigatie buttons ophalen
         navigateToConacts = (Button) findViewById(R.id.contacts);
         navigateToShop = (Button) findViewById(R.id.shop);
@@ -86,12 +93,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hpBar.setProgress(hpBar.getProgress() - 10);
                 rockImage.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shakeanimation));
+                hpBarText.setText(hpBar.getProgress() + "/" + hpBar.getMax());
                 if (hpBar.getProgress() <= 0) {
-                    hpBar.setProgress(hpBar.getMax());
-                    previousFloor.setText(String.valueOf(Integer.parseInt(previousFloor.getText().toString()) + 1));
-                    currentFloor.setText(String.valueOf(Integer.parseInt(currentFloor.getText().toString()) + 1));
-                    nextFloor.setText(String.valueOf(Integer.parseInt(nextFloor.getText().toString()) + 1));
-                    coins.setText(String.valueOf(Integer.parseInt(coins.getText().toString()) + 1));
+                   rockDefeated();
                 } else {
                     //todo critically damage on the stone in a flashy epic way
                 }
@@ -128,13 +132,41 @@ public class MainActivity extends AppCompatActivity {
         countDownTimer = new CountDownTimer(timeLeftInMiliseconds, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
+                timeLeftInMiliseconds = millisUntilFinished;
+                 hpBar.setProgress(hpBar.getProgress() - user.getDps());
+                hpBarText.setText(hpBar.getProgress() + "/" + hpBar.getMax());
+                if (hpBar.getProgress() <= 0) {
+                   rockDefeated();
+                } else {
+                    //todo critically damage on the stone in a flashy epic way
+                }
             }
 
             @Override
             public void onFinish() {
 
+                //update user
+
+
+                StartTimer();
             }
-        };
+        }.start();
+        }
+    public void rockDefeated(){
+        //coins gained
+        user.setGold(user.getGold() + ((int) (user.getFloor() * 1.735)) );
+        coins.setText(user.getGold() + "");
+        //move to next floor
+        user.setFloor( user.getFloor()+1);
+
+        previousFloor.setText(String.valueOf(user.getFloor() - 1));
+        currentFloor.setText(String.valueOf(user.getFloor()));
+        nextFloor.setText(String.valueOf(user.getFloor() + 1));
+        //calculate hp bar
+        hpBar.setMax( (int)((user.getFloor() * 1.321)* 100));
+
+        //set hpbar to full
+        hpBar.setProgress(hpBar.getMax());
+
     }
 }
