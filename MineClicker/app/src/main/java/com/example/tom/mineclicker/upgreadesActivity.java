@@ -36,14 +36,17 @@ public class upgreadesActivity extends AppCompatActivity {
         navigateToConacts = (Button) findViewById(R.id.contacts);
         navigateToHighScores = (Button) findViewById(R.id.highscores);
         buyButton = (Button) findViewById(R.id.upgreadeButton);
+        currentClickDamage = findViewById(R.id.clickDamage);
+        nextClickDamage = findViewById(R.id.clickDamageAfterUpgreade);
 
         //user init
         SharedPreferences prefs = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
         String restoredText = prefs.getString("text", null);
         String name = prefs.getString("username", "No username defined");//"No name defined" is the default value.
-        System.out.print("melding 5 " + name);
+        System.out.println("melding 5 " + name);
         user = databaseHelper.loadUserHandler(name);
 
+        System.out.println("LOGGING: COUNTRY: " + user);
 
 
        //text fields invullen
@@ -53,8 +56,9 @@ public class upgreadesActivity extends AppCompatActivity {
        price.setText(String.valueOf(user.getClickDamage() * 2 ));
        int clickdamage = user.getClickDamage();
        String currentDamage = "Current click damage: " +  clickdamage;
-       currentClickDamage.setText(String.valueOf(currentDamage));
-       // nextClickDamage.setText("Next click Damage: " + String.valueOf(user.getClickDamage() * 1.50));
+       System.out.println("LOGGING: " + user.getClickDamage() + "-" + currentDamage);
+       currentClickDamage.setText(currentDamage);
+       nextClickDamage.setText("Next click Damage: " + String.valueOf(user.getClickDamage() * 1.50));
         //navigatie
         navigateToConacts.setOnClickListener(new View.OnClickListener() {
             @Override

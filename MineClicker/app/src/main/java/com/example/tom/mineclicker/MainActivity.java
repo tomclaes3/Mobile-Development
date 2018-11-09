@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                user.setUsername(name);
                user.setPassword(password);
+               user.setClickDamage(10);
                userDatabaseHelper.addHandler(user);
                System.out.println("melding: succesvol registerd");
            }
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         rockImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                hpBar.setProgress(hpBar.getProgress() - 10);
+                hpBar.setProgress(hpBar.getProgress() - user.getClickDamage());
                 rockImage.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shakeanimation));
                 hpBarText.setText(hpBar.getProgress() + "/" + hpBar.getMax());
                 if (hpBar.getProgress() <= 0) {
