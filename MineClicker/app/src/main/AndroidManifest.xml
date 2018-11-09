@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".HighscoreActivity" />
         <activity android:name=".minersActivity" />
-        <activity android:name=".shopActivity" />
         <activity android:name=".upgreadesActivity" />
         <activity android:name=".HighscoreDetailActivity" />
         <activity android:name=".MainActivity" />

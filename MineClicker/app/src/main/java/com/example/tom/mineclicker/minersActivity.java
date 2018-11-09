@@ -15,7 +15,6 @@ public class minersActivity extends AppCompatActivity {
 
 
     Button mainButton;
-    Button navigateToShop;
     Button navigateToHighScores;
     Button navigateToUpgreade;
     Button buy1;
@@ -140,7 +139,6 @@ public class minersActivity extends AppCompatActivity {
 
 
         //navigatie buttons ophalen
-        navigateToShop = (Button) findViewById(R.id.shop);
         navigateToHighScores = (Button) findViewById(R.id.highscores);
         navigateToUpgreade = (Button) findViewById(R.id.upgrades);
 
@@ -149,12 +147,6 @@ public class minersActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(minersActivity.this, HighscoreActivity.class));
-            }
-        });
-        navigateToShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(minersActivity.this, shopActivity.class));
             }
         });
         navigateToUpgreade.setOnClickListener(new View.OnClickListener() {

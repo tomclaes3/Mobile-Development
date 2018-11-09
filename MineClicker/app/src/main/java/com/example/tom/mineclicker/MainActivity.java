@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private long timeLeftInMiliseconds = 60000;
 
     Button navigateToConacts;
-    Button navigateToShop;
     Button navigateToHighScores;
     Button navigateToUpgreade;
     UserModel user = new UserModel();
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         hpBarText.setText(hpBar.getProgress() + "/" + hpBar.getMax());
         //navigatie buttons ophalen
         navigateToConacts = (Button) findViewById(R.id.contacts);
-        navigateToShop = (Button) findViewById(R.id.shop);
         navigateToHighScores = (Button) findViewById(R.id.highscores);
         navigateToUpgreade = (Button) findViewById(R.id.upgrades);
         final Context mContext = this;
@@ -124,12 +122,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, HighscoreActivity.class));
-            }
-        });
-        navigateToShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, shopActivity.class));
             }
         });
         navigateToUpgreade.setOnClickListener(new View.OnClickListener() {

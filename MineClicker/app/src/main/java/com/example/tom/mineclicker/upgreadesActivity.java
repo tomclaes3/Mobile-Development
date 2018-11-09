@@ -13,7 +13,6 @@ public class upgreadesActivity extends AppCompatActivity {
 
     Button mainButton;
     Button navigateToConacts;
-    Button navigateToShop;
     Button navigateToHighScores;
     Button buyButton;
     EditText currentClickDamage;
@@ -35,7 +34,6 @@ public class upgreadesActivity extends AppCompatActivity {
 
         //navigatie buttons ophalen
         navigateToConacts = (Button) findViewById(R.id.contacts);
-        navigateToShop = (Button) findViewById(R.id.shop);
         navigateToHighScores = (Button) findViewById(R.id.highscores);
         buyButton = (Button) findViewById(R.id.upgreadeButton);
 
@@ -68,12 +66,6 @@ public class upgreadesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(upgreadesActivity.this, HighscoreActivity.class));
-            }
-        });
-        navigateToShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(upgreadesActivity.this, shopActivity.class));
             }
         });
 

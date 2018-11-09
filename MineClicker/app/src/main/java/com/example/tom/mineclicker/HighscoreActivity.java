@@ -10,7 +10,6 @@ public class HighscoreActivity extends FragmentActivity {
     Button mainButton;
 
     Button navigateToConacts;
-    Button navigateToShop;
     Button navigateToUpgreade;
 
     @Override
@@ -32,7 +31,6 @@ public class HighscoreActivity extends FragmentActivity {
 
         //navigatie buttons ophalen
         navigateToConacts = (Button) findViewById(R.id.contacts);
-        navigateToShop = (Button) findViewById(R.id.shop);
         navigateToUpgreade = (Button) findViewById(R.id.upgrades);
 
 
@@ -41,12 +39,6 @@ public class HighscoreActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HighscoreActivity.this, minersActivity.class));
-            }
-        });
-        navigateToShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HighscoreActivity.this, shopActivity.class));
             }
         });
         navigateToUpgreade.setOnClickListener(new View.OnClickListener() {

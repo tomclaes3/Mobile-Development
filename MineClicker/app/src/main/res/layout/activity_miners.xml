@@ -58,9 +58,9 @@
             android:id="@+id/main"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/main"
             android:drawablePadding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,32 +70,24 @@
             android:id="@+id/upgrades"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/upgreade"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/shop" />
-
-        <Button
-            android:id="@+id/shop"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/shop"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintEnd_toStartOf="@+id/highscores" />
+            app:layout_constraintEnd_toStartOf="@+id/highscores"
+            app:layout_constraintHorizontal_bias="0.767"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/highscores"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/highscores"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
