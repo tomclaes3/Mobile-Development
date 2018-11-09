@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.tom.mineclicker.UserContract.userStats;
 
 public class UserDatabaseHelper extends SQLiteOpenHelper {
-
+    public static UserModel user =  new UserModel();
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "mine.db";
 
@@ -24,7 +24,8 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                     userStats.COL_USERNAME + " TEXT, " +
                     userStats.COL_COUNTRY + " TEXT," +
                     userStats.COL_CLICK_VALUE + " INTEGER," +
-                    userStats.COL_MINER_VALUE + " INTEGER" + ");";
+                    userStats.COL_MINER_VALUE + " INTEGER," +
+                    userStats.COL_PASSWORD + " INTEGER" +");";
 
     public static final
     String DATABASE_LOAD =
@@ -66,7 +67,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String loadUserHandler(String username) {
+    public UserModel loadUserHandler(String username) {
         String result = "";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(USERNAME_LOAD + username + ";", null);
@@ -80,6 +81,16 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             int result_clickValue = cursor.getInt(6);
             int result_minerValue = cursor.getInt(7);
             String result_password = cursor.getString(8);
+
+            user.setPassword(result_password);
+            user.setClickCount(result_clicks);
+            user.setClickDamage(result_clickValue);
+            user.setCountry(result_country);
+            user.setDps(result_minerValue);
+            user.setFloor(result_floor);
+            user.setGold(result_gold);
+            user.setUsername(result_username);
+
             result = String.valueOf(result_id) + " " + String.valueOf(result_floor) + " " +
                     String.valueOf(result_clicks) + " " + String.valueOf(result_gold) + " " +
                     result_username + " " + result_country + " " +
@@ -89,7 +100,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return result;
+        return user;
     }
 
 

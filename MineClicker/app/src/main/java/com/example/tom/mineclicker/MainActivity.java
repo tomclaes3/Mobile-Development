@@ -2,6 +2,8 @@ package com.example.tom.mineclicker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SyncStatusObserver;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,12 +17,14 @@ import android.content.SharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView rockImage;
-    ProgressBar hpBar;
-    EditText coins;
-    EditText previousFloor;
-    EditText currentFloor;
-    EditText nextFloor;
+    private ImageView rockImage;
+    private ProgressBar hpBar;
+    private EditText coins;
+    private EditText previousFloor;
+    private EditText currentFloor;
+    private EditText nextFloor;
+    private CountDownTimer countDownTimer;
+    private long timeLeftInMiliseconds = 60000;
 
     Button navigateToConacts;
     Button navigateToShop;
@@ -47,21 +51,51 @@ public class MainActivity extends AppCompatActivity {
         navigateToHighScores = (Button) findViewById(R.id.highscores);
         navigateToUpgreade = (Button) findViewById(R.id.upgrades);
         final Context mContext = this;
+        UserDatabaseHelper userDatabaseHelper = new UserDatabaseHelper(this);
+
+
+        System.out.println("melding: test");
+
+        SharedPreferences prefs = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
+        String restoredText = prefs.getString("text", null);
+
+       // if (restoredText != null) {
+            String name = prefs.getString("username", "No username defined");//"No name defined" is the default value.
+            String password = prefs.getString("password", "no password defined"); //0 is the default value.
+        String allusers = userDatabaseHelper.loadHandler();
+           if ( allusers.contains(name)){
+               user = userDatabaseHelper.loadUserHandler(name);
+               System.out.println("melding: succesvol logged in");
+
+           }else{
+
+               user.setUsername(name);
+               user.setPassword(password);
+               userDatabaseHelper.addHandler(user);
+               System.out.println("melding: succesvol registerd");
+           }
+       // }
+        System.out.println("logging:" + user.getUsername() + " " + user.getPassword());
+
+
+
+
+
 
         rockImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hpBar.setProgress(hpBar.getProgress() - 10);
-              rockImage.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shakeanimation));
-                if (hpBar.getProgress() <= 0){
+                rockImage.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shakeanimation));
+                if (hpBar.getProgress() <= 0) {
                     hpBar.setProgress(hpBar.getMax());
                     previousFloor.setText(String.valueOf(Integer.parseInt(previousFloor.getText().toString()) + 1));
                     currentFloor.setText(String.valueOf(Integer.parseInt(currentFloor.getText().toString()) + 1));
                     nextFloor.setText(String.valueOf(Integer.parseInt(nextFloor.getText().toString()) + 1));
                     coins.setText(String.valueOf(Integer.parseInt(coins.getText().toString()) + 1));
-                }else{
+                } else {
                     //todo critically damage on the stone in a flashy epic way
                 }
-              //rockImage.setRotation(rockImage.getRotation() - 15);
+                //rockImage.setRotation(rockImage.getRotation() - 15);
             }
         });
         //navigatie
@@ -89,18 +123,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, upgreadesActivity.class));
             }
         });
+    }
+    public void StartTimer() {
+        countDownTimer = new CountDownTimer(timeLeftInMiliseconds, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
 
+            }
 
-        //todo als je door gaat van register moet dit gebeuren
-        SharedPreferences prefs = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
-        String restoredText = prefs.getString("text", null);
-        if (restoredText != null) {
-            String name = prefs.getString("username", "No username defined");//"No name defined" is the default value.
-            String password = prefs.getString("password", "no password defined"); //0 is the default value.
-            user.setUsername(name);
-            user.setPassword(password);
-        }
-System.out.println("logging:" + user.getUsername() + " " + user.getPassword());
+            @Override
+            public void onFinish() {
 
+            }
+        };
     }
 }
