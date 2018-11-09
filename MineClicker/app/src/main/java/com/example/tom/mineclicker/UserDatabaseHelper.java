@@ -32,7 +32,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             "SELECT * FROM " + userStats.TABLE_NAME + ";";
     public static final String
             USERNAME_LOAD =
-            "SELECT * FROM " + userStats.TABLE_NAME + " WHERE " + userStats.COL_USERNAME + " == ";
+            "SELECT * FROM " + userStats.TABLE_NAME + " WHERE " + userStats.COL_USERNAME + " = ";
 
 
     public UserDatabaseHelper(Context context) {
@@ -67,11 +67,34 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+<<<<<<< HEAD
+=======
+    public void updateHandler(UserModel user) {
+        ContentValues values = new ContentValues();
+        values.put(userStats.COL_FLOOR, user.getFloor());
+        values.put(userStats.COL_CLICKS, user.getClickCount());
+        values.put(userStats.COL_GOLD, user.getGold());
+        values.put(userStats.COL_USERNAME, user.getUsername());
+        values.put(userStats.COL_COUNTRY, user.getCountry());
+        values.put(userStats.COL_CLICK_VALUE, user.getClickDamage());
+        values.put(userStats.COL_MINER_VALUE, user.getDps());
+        values.put(userStats.COL_PASSWORD, user.getPassword());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(userStats.TABLE_NAME, values, "username='"+user.getUsername()+"'", null);
+        db.close();
+    }
+>>>>>>> origin/master
 
     public UserModel loadUserHandler(String username) {
         String result = "";
         SQLiteDatabase db = this.getWritableDatabase();
+<<<<<<< HEAD
         Cursor cursor = db.rawQuery(USERNAME_LOAD + "'"+ username +"'" + ";", null);
+=======
+        String sql = USERNAME_LOAD + "'" + username + "';";
+        Cursor cursor = db.rawQuery(sql, null);
+>>>>>>> origin/master
         while(cursor.moveToNext()){
             int result_id = cursor.getInt(0);
             int result_floor = cursor.getInt(1);
@@ -82,8 +105,11 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             int result_clickValue = cursor.getInt(6);
             int result_minerValue = cursor.getInt(7);
             String result_password = cursor.getString(8);
+<<<<<<< HEAD
 
             user.setId(result_id);
+=======
+>>>>>>> origin/master
             user.setPassword(result_password);
             user.setClickCount(result_clicks);
             user.setClickDamage(result_clickValue);
