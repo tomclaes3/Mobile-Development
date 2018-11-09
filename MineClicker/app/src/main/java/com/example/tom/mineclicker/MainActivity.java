@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    //start timer
 
+
+        //start timer
         StartTimer();
 
         hpBar = (ProgressBar) findViewById(R.id.hpBar);
@@ -81,7 +82,17 @@ public class MainActivity extends AppCompatActivity {
                userDatabaseHelper.addHandler(user);
                System.out.println("melding: succesvol registerd");
            }
-       // }
+        //set floor
+        previousFloor.setText(String.valueOf(user.getFloor() - 1));
+        currentFloor.setText(String.valueOf(user.getFloor()));
+        nextFloor.setText(String.valueOf(user.getFloor() + 1));
+        //calculate hp bar
+        hpBar.setMax( (int)((user.getFloor() * 1.321)* 100));
+
+        //set hpbar to full
+        hpBar.setProgress(hpBar.getMax());
+        //setgold
+        coins.setText(user.getGold() + "");
         System.out.println("logging:" + user.getUsername() + " " + user.getPassword());
 
 

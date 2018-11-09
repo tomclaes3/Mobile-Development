@@ -1,10 +1,12 @@
 package com.example.tom.mineclicker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class upgreadesActivity extends AppCompatActivity {
 
@@ -13,6 +15,14 @@ public class upgreadesActivity extends AppCompatActivity {
     Button navigateToConacts;
     Button navigateToShop;
     Button navigateToHighScores;
+    Button buyButton;
+    EditText currentClickDamage;
+    EditText nextClickDamage;
+    EditText gold;
+    EditText price;
+    UserModel user;
+    UserDatabaseHelper databaseHelper = new UserDatabaseHelper(this);
+
 
 
 
@@ -27,7 +37,26 @@ public class upgreadesActivity extends AppCompatActivity {
         navigateToConacts = (Button) findViewById(R.id.contacts);
         navigateToShop = (Button) findViewById(R.id.shop);
         navigateToHighScores = (Button) findViewById(R.id.highscores);
+        buyButton = (Button) findViewById(R.id.upgreadeButton);
 
+        //user init
+        SharedPreferences prefs = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
+        String restoredText = prefs.getString("text", null);
+        String name = prefs.getString("username", "No username defined");//"No name defined" is the default value.
+        System.out.print("melding 5 " + name);
+        user = databaseHelper.loadUserHandler(name);
+
+
+
+       //text fields invullen
+        gold = (EditText) findViewById(R.id.coins);
+        price = (EditText) findViewById(R.id.price);
+        gold.setText(String.valueOf(user.getGold()));
+       price.setText(String.valueOf(user.getClickDamage() * 2 ));
+       int clickdamage = user.getClickDamage();
+       String currentDamage = "Current click damage: " +  clickdamage;
+       currentClickDamage.setText(String.valueOf(currentDamage));
+       // nextClickDamage.setText("Next click Damage: " + String.valueOf(user.getClickDamage() * 1.50));
         //navigatie
         navigateToConacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +77,24 @@ public class upgreadesActivity extends AppCompatActivity {
             }
         });
 
+
+
+        //upgreade
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (user.getGold() > (user.getClickDamage()*2)) {
+                    user.setGold(user.getGold() - (user.getClickDamage()*2));
+                    double clickdamage = user.getClickDamage() * 1.5;
+                    user.setClickDamage((int) clickdamage);
+                    gold.setText(String.valueOf(user.getGold()));
+                    gold.setText(String.valueOf(user.getGold()));
+                    price.setText((user.getClickDamage() * 2 )+ "");
+                    currentClickDamage.setText("Current click damage: " + user.getClickDamage());
+                    nextClickDamage.setText("Next click Damage: " + (user.getClickDamage() * 1.50));
+                }
+            }
+        });
 
 
 
