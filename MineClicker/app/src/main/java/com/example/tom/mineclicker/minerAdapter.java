@@ -27,8 +27,8 @@ public class minerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((item)holder).textView.setText(items[position]);
     }
 
     @Override

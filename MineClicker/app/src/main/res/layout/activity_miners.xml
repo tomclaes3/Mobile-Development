@@ -13,8 +13,10 @@
         android:background="@drawable/backgrounddirt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:context=".MainActivity">
 
         <ImageView
@@ -31,6 +33,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"></ImageView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewMiners"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"></android.support.v7.widget.RecyclerView>
 
         <Button
             android:id="@+id/main"
@@ -99,16 +119,6 @@
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/coinsImg"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Miners"
-            tools:layout_editor_absoluteX="75dp"
-            tools:layout_editor_absoluteY="207dp" />
 
     </android.support.constraint.ConstraintLayout>
 

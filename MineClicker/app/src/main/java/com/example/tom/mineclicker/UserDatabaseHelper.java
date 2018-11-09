@@ -66,9 +66,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.insert(userStats.TABLE_NAME, null, values);
         db.close();
     }
-
-<<<<<<< HEAD
-=======
     public void updateHandler(UserModel user) {
         ContentValues values = new ContentValues();
         values.put(userStats.COL_FLOOR, user.getFloor());
@@ -84,17 +81,12 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.update(userStats.TABLE_NAME, values, "username='"+user.getUsername()+"'", null);
         db.close();
     }
->>>>>>> origin/master
 
     public UserModel loadUserHandler(String username) {
         String result = "";
         SQLiteDatabase db = this.getWritableDatabase();
-<<<<<<< HEAD
         Cursor cursor = db.rawQuery(USERNAME_LOAD + "'"+ username +"'" + ";", null);
-=======
         String sql = USERNAME_LOAD + "'" + username + "';";
-        Cursor cursor = db.rawQuery(sql, null);
->>>>>>> origin/master
         while(cursor.moveToNext()){
             int result_id = cursor.getInt(0);
             int result_floor = cursor.getInt(1);
@@ -105,11 +97,8 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             int result_clickValue = cursor.getInt(6);
             int result_minerValue = cursor.getInt(7);
             String result_password = cursor.getString(8);
-<<<<<<< HEAD
 
             user.setId(result_id);
-=======
->>>>>>> origin/master
             user.setPassword(result_password);
             user.setClickCount(result_clicks);
             user.setClickDamage(result_clickValue);

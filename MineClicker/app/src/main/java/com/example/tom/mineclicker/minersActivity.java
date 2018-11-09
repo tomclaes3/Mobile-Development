@@ -3,7 +3,10 @@ package com.example.tom.mineclicker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 
 public class minersActivity extends AppCompatActivity {
@@ -13,8 +16,8 @@ public class minersActivity extends AppCompatActivity {
     Button navigateToShop;
     Button navigateToHighScores;
     Button navigateToUpgreade;
-
-
+    RecyclerView recyclerView;
+    String[] items={"item 0", "item 1", "item 2","item 3","item 4"};
 
 
 
@@ -24,7 +27,9 @@ public class minersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_miners);
         mainButton = (Button) findViewById(R.id.main);
 
-
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMiners);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new minerAdapter(this,items));
 
         //navigatie buttons ophalen
         navigateToShop = (Button) findViewById(R.id.shop);

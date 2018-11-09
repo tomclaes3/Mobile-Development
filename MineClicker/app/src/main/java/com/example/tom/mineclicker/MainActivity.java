@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText currentFloor;
     private EditText nextFloor;
     private CountDownTimer countDownTimer;
+    private  UserDatabaseHelper userDatabaseHelper;
     private long timeLeftInMiliseconds = 60000;
 
     Button navigateToConacts;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         StartTimer();
 
-
         hpBar = (ProgressBar) findViewById(R.id.hpBar);
         rockImage = (ImageView) findViewById(R.id.rock);
         coins = (EditText) findViewById(R.id.coins);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         navigateToHighScores = (Button) findViewById(R.id.highscores);
         navigateToUpgreade = (Button) findViewById(R.id.upgrades);
         final Context mContext = this;
-        UserDatabaseHelper userDatabaseHelper = new UserDatabaseHelper(this);
+        userDatabaseHelper = new UserDatabaseHelper(this);
 
 
         System.out.println("melding: test");
@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
 
-                //update user
 
+                userDatabaseHelper.updateHandler(user);
 
                 StartTimer();
             }
